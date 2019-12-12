@@ -2,6 +2,8 @@ package graphql
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -158,4 +160,28 @@ func TestHeader(t *testing.T) {
 	is.Equal(calls, 1)
 
 	is.Equal(resp.Value, "some data")
+}
+
+func TestHTTPError(t *testing.T) {
+	is := is.New(t)
+
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusForbidden)
+		json.NewEncoder(w).Encode(map[string]interface{}{"message": "Forbidden"})
+	}))
+	defer srv.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+	defer cancel()
+
+	client := NewClient(srv.URL)
+
+	req := NewRequest("query {}")
+	// check variables
+	var resp struct {
+		Message string `json:"message"`
+	}
+	err := client.Run(ctx, req, &resp)
+	is.Equal(err, fmt.Errorf("graphql: server returned a non-200 status code: 403"))
+
+	is.Equal(resp.Message, "")
 }
