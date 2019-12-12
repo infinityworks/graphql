@@ -1,4 +1,4 @@
-# graphql [![GoDoc](https://godoc.org/github.com/machinebox/graphql?status.png)](http://godoc.org/github.com/machinebox/graphql) [![Build Status](https://travis-ci.org/machinebox/graphql.svg?branch=master)](https://travis-ci.org/machinebox/graphql) [![Go Report Card](https://goreportcard.com/badge/github.com/machinebox/graphql)](https://goreportcard.com/report/github.com/machinebox/graphql)
+# graphql [![GoDoc](https://godoc.org/github.com/infinityworks/graphql?status.png)](http://godoc.org/github.com/infinityworks/graphql) [![Build Status](https://travis-ci.org/infinityworks/graphql.svg?branch=master)](https://travis-ci.org/infinityworks/graphql) [![Go Report Card](https://goreportcard.com/badge/github.com/infinityworks/graphql)](https://goreportcard.com/report/github.com/infinityworks/graphql)
 
 Low-level GraphQL client for Go.
 
@@ -13,7 +13,7 @@ Low-level GraphQL client for Go.
 Make sure you have a working Go environment. To install graphql, simply run:
 
 ```
-$ go get github.com/machinebox/graphql
+$ go get github.com/infinityworks/graphql
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ $ go get github.com/machinebox/graphql
 import "context"
 
 // create a client (safe to share across requests)
-client := graphql.NewClient("https://machinebox.io/graphql")
+client := graphql.NewClient("https://infinityworks.io/graphql")
 
 // make a request
 req := graphql.NewRequest(`
@@ -57,11 +57,14 @@ By default, the package will send a JSON body. To enable the sending of files, y
 use multipart form data instead using the `UseMultipartForm` option when you create your `Client`:
 
 ```
-client := graphql.NewClient("https://machinebox.io/graphql", graphql.UseMultipartForm())
+client := graphql.NewClient("https://infinityworks.io/graphql", graphql.UseMultipartForm())
 ```
 
-For more information, [read the godoc package documentation](http://godoc.org/github.com/machinebox/graphql) or the [blog post](https://blog.machinebox.io/a-graphql-client-library-for-go-5bffd0455878).
+For more information, [read the godoc package documentation](http://godoc.org/github.com/infinityworks/graphql) or the [blog post](https://blog.machinebox.io/a-graphql-client-library-for-go-5bffd0455878).
 
 ## Thanks
+
+Thanks to [Machinebox](https://github.com/machinebox/graphql) for their original
+work on this library pre-fork.
 
 Thanks to [Chris Broadfoot](https://github.com/broady) for design help.
